@@ -16,10 +16,12 @@ class BaseTestCase(TestCase):
         return inserted objects
         """
         # create seeder
+
         seeder = Seed.seeder()
+
         # add model objects
 
-        if data is not None:
+        if data:
             seeder.add_entity(model, times, data)
         else:
             seeder.add_entity(model, times)
@@ -27,7 +29,7 @@ class BaseTestCase(TestCase):
         # get inserted object
 
         inserted_objects = seeder.execute()
-        id_list = inserted_object[model]
+        id_list = inserted_objects[model]
 
         # return a QuerySet with inserted objects
         # by filtering id

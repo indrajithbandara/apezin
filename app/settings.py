@@ -83,24 +83,12 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 
-# Changing database if is running some test
-def sqlite_db(db):
-    """
-    Return an dict containing base configurations to 
-    connect in an sqlite3 database
-
-    args:\n
-    * db = Database name
-    """
-    return {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, db),
-    }
-
-
-# Check if 'test' exists inside sys.argv and setup test database
 DATABASES = {
-    'default': sqlite_db(':memory:') if 'test' in sys.argv else sqlite_db('apezin.sqlite3')
+
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'apezin.sqlite3') if 'test' not in sys.argv else ':memory:'
+    }
 }
 
 

@@ -1,6 +1,5 @@
 from app.base.tests import BaseTestCase
 from app.rent.models import Apartment, Price
-from pprint import pprint
 
 
 class ApartmentTestCase(BaseTestCase):
@@ -12,13 +11,7 @@ class ApartmentTestCase(BaseTestCase):
         """
         Try to app an apartment
         """
-        apartment = self.seed(model=Apartment, data={
-            'name': 'AP02'
-        })
-
-        prices = self.seed(model=Price, times=3, data={
-
-        })
+        apartment = self.seed(model=Apartment)
 
         self.assertTrue(apartment.is_avaliable,
                         'Apartment must be avaliable at creation')
@@ -27,4 +20,4 @@ class ApartmentTestCase(BaseTestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, apartment.name,
-                            'Inserted apartment not appearing in list')
+                            msg_prefix='Inserted apartment not appearing in list')

@@ -1,32 +1,25 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+{% extends "base.html" %} {% block title %} My Apartments {% endblock title %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>My Apartments</title>
-</head>
-
-<body>
-    <table>
-        <thead>
-            <tr>
-                <th>#id</th>
-                <th>Name</th>
-                <th>Current Price</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for apartment in apartments %}
-            <tr>{{ apartment.id }}</tr>
-            <tr>{{ apartment.name }}</tr>
-            <tr>{{ apartment.current_price }}</tr>
-            <tr>{{ apartment.status }}</tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</body>
-
-</html>
+<!-- apartments -->
+{% block main_content %}
+<table>
+    <thead>
+        <tr>
+            <th>#id</th>
+            <th>Name</th>
+            <th>Current Price</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for apartment in apartments %}
+        <tr>
+            <td>{{ apartment.id }}</td>
+            <td>{{ apartment.name }}</td>
+            <td>{{ apartment.current_price }}</td>
+            <td>{{ apartment.is_avaliable }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock main_content %}

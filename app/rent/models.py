@@ -11,8 +11,8 @@ class Apartment(BaseModel):
         """
         Returns the last inserted price to apartment
         """
-        prices = self.prices.all()
-        return prices[-1] if prices else 0
+        prices = self.prices.all().reverse()
+        return prices[0].value if prices else 0
 
 
 class Price(BaseModel):
