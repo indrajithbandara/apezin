@@ -2,24 +2,56 @@
 
 <!-- apartments -->
 {% block main_content %}
-<table>
-    <thead>
-        <tr>
-            <th>#id</th>
-            <th>Name</th>
-            <th>Current Price</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for apartment in apartments %}
-        <tr>
-            <td>{{ apartment.id }}</td>
-            <td>{{ apartment.name }}</td>
-            <td>{{ apartment.current_price }}</td>
-            <td>{{ apartment.is_avaliable }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+
+<div>
+    <h1>Adicionar novo apartamento</h1>
+    <form action="{% url 'rent:apartments' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="name">Nome: </label>
+            <input type="text" id='nome' name='name' value="{{ form_apartment.name.value }}">
+            <span>
+                {% for e in form_apartment.name.errors %}
+                <li>{{ e }}</li>
+                {% endfor %}
+            </span>
+        </div>
+        <div>
+            <label for="start_price">Mensalidade inicial: </label>
+            <input type="text" id='start_price' name='start_price' value="{{ form_apartment.start_price.value }}">
+            <span>
+                {% for e in form_apartment.start_price.errors %}
+                <li>{{ e }}</li>
+                {% endfor %}
+            </span>
+        </div>
+        <button type='submit'>Salvar</button>
+    </form>
+</div>
+
+<div>
+    <h1>Meus apartamentos</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>#id</th>
+                <th>Nome</th>
+                <th>Preço atual</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for apartment in apartments %}
+            <tr>
+                <td>{{ apartment.id }}</td>
+                <td>{{ apartment.name }}</td>
+                <td>{{ apartment.current_price }}</td>
+                <td>{{ apartment.is_avaliable }}</td>
+            </tr>
+            {% empty %}
+            <small>Nenhum apartamento cadastrado.</small>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock main_content %}

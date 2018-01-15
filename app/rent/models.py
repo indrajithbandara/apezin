@@ -4,7 +4,7 @@ from app.base.models import BaseModel
 
 class Apartment(BaseModel):
     name = models.CharField(max_length=255, null=False,
-                            blank=False, unique=True)
+                            blank=False)
     is_avaliable = models.BooleanField(default=True)
 
     def current_price(self):
@@ -21,5 +21,6 @@ class Price(BaseModel):
     apartment = models.ForeignKey(
         to=Apartment,
         related_name='prices',
+        related_query_name='apartment',
         on_delete=models.PROTECT
     )

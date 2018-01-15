@@ -1,6 +1,8 @@
 from django.test import TestCase, Client
 from django_seed import Seed
 
+required_field_validator = 'Este campo é obrigatório.'
+
 
 class BaseTestCase(TestCase):
     client = Client()
@@ -38,3 +40,9 @@ class BaseTestCase(TestCase):
             return model.objects.filter(id__in=id_list)
         else:  # Return only one inserted object
             return model.objects.get(id=id_list[0])
+
+    def assertHasErrors(self,  form, field_name):
+        """
+        Check if :field_name: has an error inside :form:
+        """
+        return field_name in form.errors
